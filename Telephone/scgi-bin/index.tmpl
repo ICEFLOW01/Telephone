@@ -1,0 +1,37 @@
+<html>
+   <head>
+   <meta name="my first scgi" content="first" charset="utf-8"/>
+   <title>index</title>
+   </head>
+   <body bgcolor="white">
+	<script> 
+	document.write("<span id=time></span>") 
+	setInterval("time.innerText=new Date().toLocaleString()",1000)  
+	</script>
+	<center>
+	<table>
+		<tr>
+      			<td><h2><font fac="arial">$addinfo2</font></h2></td>
+		</tr>
+	</table>
+	</center>
+	<table>
+		<tr>
+      		<td><a href="http://172.16.16.10:80/scgi-bin/all" target="_blank">$addinfo1</a><br><br></td>
+		</tr>
+		<tr>
+      		<td><a href="http://172.16.16.10:80/scgi-bin/first" target="_blank">$addinfo3</a><br><br></td>
+		</tr>
+		<tr>
+      		<td><a href="http://172.16.16.10:80/scgi-bin/add" target="_blank">$addinfo4</a><br><br></td>
+		</tr>
+		<tr>
+      		<td><a href="http://172.16.16.10:80/scgi-bin/del" target="_blank">$addinfo5</a><br><br></td>
+		</tr>
+		<tr>
+      		<td><a href="http://172.16.16.10:80/scgi-bin/change" target="_blank">$addinfo6</a></td>
+		</tr>
+	</table>
+   </body>
+</html>
+
