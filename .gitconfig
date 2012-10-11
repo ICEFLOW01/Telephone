@@ -1,0 +1,8 @@
+[user]
+	name = yolo
+	email = wangyl@iceflow.cn
+[push]
+	default = matching
+[color]
+	status = auto
+	branch = auto
