@@ -17,9 +17,12 @@
 #define TCP_MAX 60000//设定最大的连接数；
 typedef struct client_mes_struct
 {
-		int flag;             //标志位；
-		int len;             //长度；
+		int id_flag;             //标志位；
+		int total_len;             //包长度；
+        int read_len;          //以读取长度；
 		char buf[4096];      //保存信息的buf；
+        struct event *write_event;
+        struct event *read_event;
 }CLIENT_MES;
 
 CLIENT_MES client_mes[65535];
