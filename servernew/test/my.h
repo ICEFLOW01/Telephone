@@ -14,18 +14,6 @@
 #include<pthread.h>
 
 #define HASH_TABLE_MAX_SIZE 10000//哈希数组大小；
-#define TCP_MAX 60000//设定最大的连接数；
-typedef struct client_mes_struct
-{
-		int id_flag;             //标志位；
-		int total_len;             //包长度；
-        int read_len;          //以读取长度；
-		char buf[4096];      //保存信息的buf；
-        struct event *write_event;
-        struct event *read_event;
-}CLIENT_MES;
-
-CLIENT_MES client_mes[65535];
 
 typedef struct Infor_Struct//员工信息结构体；
 {
@@ -73,6 +61,6 @@ void hash_table_release();
 
 //函数的声明；
 void do_accept(evutil_socket_t listener, short event, void*arg);
-void read_cb(int fd, short event, void*arg);
+void read_cb(struct bufferevent*bev, void*arg);
 void error_cb(struct bufferevent*bev, short event, void*arg);
-void write_cb(int fd, short event, void*arg);//暂时未使用；
+void write_cb(struct bufferevent*bev, void*arg);//暂时未使用；
