@@ -12,6 +12,9 @@
 #include<sys/types.h>
 #include<sys/socket.h>
 #include<pthread.h>
+#include<sys/types.h>
+#include<unistd.h>
+#include<fcntl.h>
 
 #define HASH_TABLE_MAX_SIZE 10000//哈希数组大小；
 #define TCP_MAX 60000//设定最大的连接数；
@@ -19,7 +22,7 @@ typedef struct client_mes_struct
 {
 		int id_flag;             //标志位；
 		int total_len;             //包长度；
-        int read_len;          //以读取长度；
+        int had_len;          //已经存取长度；
 		char buf[4096];      //保存信息的buf；
         struct event *write_event;
         struct event *read_event;
