@@ -27,31 +27,6 @@ unsigned int hash_table_hash_str(const char*skey)//字符串哈希算法函数�
     return h;
 }
 
-/*
-int main()//测试函数；
-{
-  //  char DBName[] = "Telephone";
-  //  char DBUserName[] = "root";
-  //  char DBUserPassword[] = "IceFlow2012";
-    init_hash_table();
-    update_hash_table();
-    printf("哈希表实际大小：%d\n", hash_table_size);
-    char a[256];
-    printf("请输入要查询的信息：");
-    scanf("%s", a);
-    HashNode*ptest;
-    ptest = hash_table_lookup(a);
-    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n", ptest->infor->myname,
-                                        ptest->infor->abbreviation,
-                                        ptest->infor->full,
-                                        ptest->infor->company,
-                                        ptest->infor->privation,
-                                        ptest->infor->extension,
-                                        ptest->infor->emall);
-    return 0;
-}
-*/
-
 //free the memory of the hash table
 void hash_table_release()//重载hash表数据之前，释放之前hash表资源；
 {
@@ -167,6 +142,7 @@ void display_header()//建立哈希表；
             
             hash_table_insert(row[i]?row[i]:"NULL", NewInfor);//给每一行的每一列进行hash算法，插入hash表；
         }
+        hash_table_insert("\n", NewInfor);//插入以“\n”为key值的节点，下面存放所有数据库信息
     }
 }
 
@@ -212,13 +188,16 @@ HashNode** hash_table_lookup(char* skey)//查找哈希表数据；
 {
 
     int i;
-    for(i=0; i<strlen(skey); i++)//去掉字符串后的回车符号；
+    if(skey[0] != '\n')
     {
-        if(skey[i]=='\n')
+        for(i=0; i<strlen(skey); i++)//去掉字符串后的回车符号；
         {
-            skey[i]='\0';
-            break;
-        }      
+            if(skey[i]=='\n')
+            {
+                skey[i]='\0';
+                break;
+            }      
+        }
     }
     i = 0;
     memset(hn, 0, sizeof(hn));
@@ -242,5 +221,29 @@ HashNode** hash_table_lookup(char* skey)//查找哈希表数据；
     return NULL;
 }
 
+/*
+int main()//测试函数；
+{
+  //  char DBName[] = "Telephone";
+  //  char DBUserName[] = "root";
+  //  char DBUserPassword[] = "IceFlow2012";
+    init_hash_table();
+    update_hash_table();
+    printf("哈希表实际大小：%d\n", hash_table_size);
+    char a[256];
+    printf("请输入要查询的信息：");
+    scanf("%s", a);
+    HashNode*ptest;
+    ptest = hash_table_lookup(a);
+    printf("%s\n%s\n%s\n%s\n%s\n%s\n%s\n", ptest->infor->myname,
+                                        ptest->infor->abbreviation,
+                                        ptest->infor->full,
+                                        ptest->infor->company,
+                                        ptest->infor->privation,
+                                        ptest->infor->extension,
+                                        ptest->infor->emall);
+    return 0;
+}
+*/
 
 

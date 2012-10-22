@@ -18,6 +18,9 @@
 
 #define HASH_TABLE_MAX_SIZE 10000//哈希数组大小；
 #define TCP_MAX 60000//设定最大的连接数；
+#define LISTEN_PORT 5000
+#define LISTEN_BACKLOG 32
+
 typedef struct client_mes_struct
 {
 		int id_flag;             //标志位；
@@ -60,22 +63,28 @@ typedef struct QA_head
     int package_id;
 }QA_HEAD;
 
-int function();//client端功能展开函数；
-void *write_ser();//往套接字里写数据函数；
-void *read_ser();//从套接字读取信息函数；
-void unpackage(char*buf);//解包函数；
+int tcp_init();
+void write_ser();
+void read_ser();
+int read_stdin(char*data, int len);
+void unpackage(char*buf);
+int tcp_close();
 
+int server_init();
+int tcp_init();
+void do_accept(evutil_socket_t listener, short event, void *arg);
+void read_cb(int fd, short event, void*arg);
+int judgment_existence(int fd);
+int data_processing(int fd, char*line, int len, void*arg);
+int exception_handling(int fd, char*buf, int len, void*arg);
+int write_mes(int fd, char*buf, QA_HEAD qa_head, void*arg);
+void write_cb(int fd, short event, void*arg);
+
+void hash_table_init();
+unsigned int hash_table_hash_str(const char*skey);
+void hash_table_release();
+int update_hash_table();
+int init_hash_table();
 void display_header();
 void hash_table_insert(const char* skey, INFOR* nvalue);
 HashNode** hash_table_lookup(char* skey);
-int init_hash_table();
-int update_hash_table();
-void hash_table_release();
-#define LISTEN_PORT 5000
-#define LISTEN_BACKLOG 32
-
-//函数的声明；
-void do_accept(evutil_socket_t listener, short event, void*arg);
-void read_cb(int fd, short event, void*arg);
-void error_cb(struct bufferevent*bev, short event, void*arg);
-void write_cb(int fd, short event, void*arg);//暂时未使用；
